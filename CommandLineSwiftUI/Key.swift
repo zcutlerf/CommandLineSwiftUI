@@ -73,16 +73,14 @@ enum Key: String, CaseIterable {
         case .tab:
             self = .tab
         default:
-            if keyEquivalent.character.isNumber,
-               let key = Key(rawValue: "num\(keyEquivalent.character)") {
-                self = key
-            }
-            
-            if let key = Key(rawValue: keyEquivalent.character.lowercased()) {
-                self = key
-            }
-            
-            return nil
+            break
         }
+        
+        if keyEquivalent.character.isNumber {
+            self.init(rawValue: "num\(keyEquivalent.character)")
+            return
+        }
+        
+        self.init(rawValue: keyEquivalent.character.lowercased())
     }
 }
