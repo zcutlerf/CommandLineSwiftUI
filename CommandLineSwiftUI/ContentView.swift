@@ -5,31 +5,38 @@ struct ContentView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        List {
-            ForEach(manager._lines) { line in
-                Text(line.text)
-                    .font(.system(.body).monospaced())
-                    .listRowSeparator(.hidden)
-            }
-            
-            if manager._isAwaitingUserInput {
-                HStack(spacing: 2) {
-                    Text(manager._userInput)
+        ScrollViewReader { scrollProxy in
+            List {
+                ForEach(manager._lines) { line in
+                    Text(line.text)
                         .font(.system(.body).monospaced())
-                    
-                    Text("▮")
-                        .font(.system(.title2).monospaced())
+                        .listRowSeparator(.hidden)
+                        .id(line.number)
                 }
-                .listRowSeparator(.hidden)
-            }
-            
-            if manager._hasFinishedRunningMain {
-                Text("Program ended with exit code: 0")
-                    .font(.system(.body).monospaced())
+                
+                if manager._isAwaitingUserInput {
+                    HStack(spacing: 2) {
+                        Text(manager._userInput)
+                            .font(.system(.body).monospaced())
+                        
+                        Text("▮")
+                            .font(.system(.title2).monospaced())
+                    }
                     .listRowSeparator(.hidden)
+                }
+                
+                if manager._hasFinishedRunningMain {
+                    Text("Program ended with exit code: 0")
+                        .font(.system(.body).monospaced())
+                        .listRowSeparator(.hidden)
+                }
+            }
+            .listStyle(.plain)
+            .listRowInsets(EdgeInsets())
+            .onChange(of: manager._currentLine) {
+                scrollProxy.scrollTo(manager._currentLine)
             }
         }
-        .listStyle(.plain)
         .onAppear {
             Task {
                 await manager.main()

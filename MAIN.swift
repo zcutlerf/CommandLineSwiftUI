@@ -28,5 +28,8 @@ extension CommandLineManager {
         case .d: print("d")
         default: break
         }
+        
+        // clear - clears the command line UI
+        clear()
     }
 }

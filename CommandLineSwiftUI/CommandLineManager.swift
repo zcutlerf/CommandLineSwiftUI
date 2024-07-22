@@ -2,7 +2,7 @@ import Foundation
 
 class CommandLineManager: ObservableObject {
     /// List of lines shown on the command line UI.
-    @Published var _lines: [Line] = [Line(text: "Welcome to the Command Line!")]
+    @Published var _lines: [Line] = [Line(text: "Welcome to the Command Line!", number: 0)]
     
     /// The currently selected line number.
     /// (Usually the last line on the command line UI)
@@ -39,7 +39,8 @@ class CommandLineManager: ObservableObject {
         let staticText = text
         Task {
             await MainActor.run {
-                _lines.append(Line(text: staticText))
+                _lines.append(Line(text: staticText, number: _currentLine + 1))
+                _currentLine += 1
             }
         }
     }
@@ -57,7 +58,7 @@ class CommandLineManager: ObservableObject {
         
         let text = _userInput
         await MainActor.run {
-            _lines.append(Line(text: text))
+            _lines.append(Line(text: text, number: _currentLine + 1))
             _currentLine += 1
             _userInput = ""
         }
@@ -114,6 +115,6 @@ class CommandLineManager: ObservableObject {
     /// Clears the command line UI.
     func clear() {
         _currentLine = 0
-        _lines = [Line(text: "Welcome to the Command Line!")]
+        _lines = [Line(text: "Welcome to the Command Line!", number: 0)]
     }
 }
