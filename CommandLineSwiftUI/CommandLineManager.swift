@@ -114,7 +114,11 @@ class CommandLineManager: ObservableObject {
     
     /// Clears the command line UI.
     func clear() {
-        _currentLine = 0
-        _lines = [Line(text: "Welcome to the Command Line!", number: 0)]
+        Task {
+            await MainActor.run {
+                _currentLine = 0
+                _lines = [Line(text: "Welcome to the Command Line!", number: 0)]
+            }
+        }
     }
 }
