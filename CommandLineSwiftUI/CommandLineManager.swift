@@ -53,7 +53,17 @@ class CommandLineManager: ObservableObject {
         }
         
         while _isAwaitingUserInput {
-            await Task.yield()
+            let key = await awaitKeyPress(keys: Key.letters + Key.numbers + Key.punctuation + [Key.return])
+            switch key {
+            case .return:
+                await MainActor.run {
+                    _isAwaitingUserInput = false
+                }
+            default:
+                await MainActor.run {
+                    _userInput.append(key.keyEquivalent.character)
+                }
+            }
         }
         
         let text = _userInput

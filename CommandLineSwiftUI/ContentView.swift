@@ -32,7 +32,6 @@ struct ContentView: View {
                 }
             }
             .listStyle(.plain)
-            .listRowInsets(EdgeInsets())
             .onChange(of: manager._currentLine) {
                 scrollProxy.scrollTo(manager._currentLine)
             }
@@ -50,26 +49,6 @@ struct ContentView: View {
         .focusable()
         .focused($isFocused)
         .focusEffectDisabled()
-        .onKeyPress(.return) {
-            Task {
-                await MainActor.run {
-                    manager._isAwaitingUserInput = false
-                }
-            }
-            return .handled
-        }
-        .onKeyPress(characters: .alphanumerics) { keyPress in
-            if manager._isAwaitingUserInput {
-                Task {
-                    await MainActor.run {
-                        manager._userInput.append(keyPress.characters)
-                    }
-                }
-                return .handled
-            } else {
-                return .ignored
-            }
-        }
         .onKeyPress(phases: .down) { keyPress in
             if let key = Key(keyEquivalent: keyPress.key) {
                 if manager._awaitingKeyPresses.contains(key) {
