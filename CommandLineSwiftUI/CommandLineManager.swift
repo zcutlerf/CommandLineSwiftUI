@@ -66,7 +66,7 @@ class CommandLineManager: ObservableObject {
     
     /// Reads a string inputted by the user from the command line UI.
     /// - Returns: String typed by the user.
-    func readLine() async -> String {
+    func readLine() async -> String? {
         await readString()
     }
     
