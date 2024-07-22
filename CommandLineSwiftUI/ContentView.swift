@@ -15,7 +15,7 @@ struct ContentView: View {
                 }
                 
                 if manager._isAwaitingUserInput {
-                    HStack(spacing: 2) {
+                    HStack(spacing: 0) {
                         Text(manager._userInput)
                             .font(.system(.body).monospaced())
                         
