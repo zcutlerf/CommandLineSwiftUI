@@ -9,7 +9,7 @@ struct ContentView: View {
             List {
                 ForEach(manager._lines) { line in
                     Text(line.text)
-                        .font(.system(.body).monospaced())
+                        .font(.system(.body).monospaced().leading(.tight))
                         .listRowSeparator(.hidden)
                         .id(line.number)
                 }
@@ -17,10 +17,10 @@ struct ContentView: View {
                 if manager._isAwaitingUserInput {
                     HStack(spacing: 0) {
                         Text(manager._userInput)
-                            .font(.system(.body).monospaced())
+                            .font(.system(.body).monospaced().leading(.tight))
                         
-                        Text("▮")
-                            .font(.system(.title2).monospaced())
+                        Text("█")
+                            .font(.system(.body).monospaced().leading(.tight))
                     }
                     .listRowSeparator(.hidden)
                 }
