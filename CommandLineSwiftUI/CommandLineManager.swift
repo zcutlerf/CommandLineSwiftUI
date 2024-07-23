@@ -103,14 +103,23 @@ class CommandLineManager: ObservableObject {
     /// - Parameter keys: The keys being watched.
     /// - Returns: The key pressed by the user.
     @discardableResult
-    func awaitKeyPress(keys: [Key]) async -> Key {
+    func awaitKeyPress(keys: [Key], timeout: TimeInterval? = nil) async -> Key {
         await MainActor.run {
             _isAwaitingKeyPresses = true
             _awaitingKeyPresses = keys
         }
         
+        let initialTime = Date()
+        
         while _isAwaitingKeyPresses {
-            await Task.yield()
+            let currentTime = Date()
+            let elapsedTime = currentTime.timeIntervalSince(initialTime)
+            if let timeout,
+               elapsedTime > timeout {
+                return .none
+            } else {
+                await Task.yield()
+            }
         }
         
         let pressedKey = _pressedKey
@@ -126,8 +135,19 @@ class CommandLineManager: ObservableObject {
     func clear() {
         Task {
             await MainActor.run {
-                _currentLine = 0
-                _lines = [Line(text: "Welcome to the Command Line!", number: 0)]
+                self._currentLine = 0
+                self._lines = [Line(text: "Welcome to the Command Line!", number: 0)]
+            }
+        }
+    }
+    
+    /// Replaces all of the current lines on the command line UI with a new line.
+    func replace(with items: CustomStringConvertible..., separator: String = " ") {
+        Task {
+            await MainActor.run {
+                self._currentLine = 0
+                self._lines = [Line(text: "Welcome to the Command Line!", number: 0)]
+                print(items, separator: separator)
             }
         }
     }
