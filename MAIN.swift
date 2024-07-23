@@ -2,34 +2,93 @@ import Foundation
 
 extension CommandLineManager {
     func main() async {
-        // Below are some built-in functions that you can use to interact with the command line UI.
+        var wantsToPlaySnake = true
         
-        // print - prints to console
-        print("Enter your name:")
-        
-        // readString - user inputs string, then presses return
-        let name = await readString()
-        print("Your name is \(name)")
-        
-        // other input methods - returns data type if user inputs correctly, or nil if they don't
-        let _ = await readInt()
-        let _ = await readDouble()
-        let _ = await readBool()
-        
-        // awaitKeyPress = awaits one or more keys, returns key that was pressed
-        await awaitKeyPress(keys: [.leftArrow])
-        print("You pressed left arrow")
-        
-        let key = await awaitKeyPress(keys: [.w, .a, .s, .d])
-        switch key {
-        case .w: print("w")
-        case .a: print("a")
-        case .s: print("a")
-        case .d: print("d")
-        default: break
+        while wantsToPlaySnake {
+            replace(with: "Welcome to Snake!")
+            print("How big of a board? S/M/L")
+            
+            var width = 0
+            var height = 0
+            var initialPosition = (0, 0)
+            var direction = Direction.left
+            var initialLength = 0
+            
+            let boardSize = await awaitKeyPress(keys: [.s, .m, .l])
+            switch boardSize {
+            case .s:
+                width = 25
+                height = 14
+                initialPosition = (4, 4)
+                direction = .left
+                initialLength = 2
+            case .m:
+                width = 35
+                height = 20
+                initialPosition = (6, 6)
+                direction = .left
+                initialLength = 3
+            case .l:
+                width = 50
+                height = 28
+                initialPosition = (8, 8)
+                direction = .left
+                initialLength = 4
+            default:
+                fatalError()
+            }
+            
+            
+            let game = Game(width: width, height: height, initialPosition: initialPosition, trailing: direction, by: initialLength)
+            
+            let speed: TimeInterval = 0.1
+            
+            while !game.gameIsOver {
+                let board = game.board
+                replace(with: board)
+                
+                let initialDate = Date()
+                let key = await self.awaitKeyPress(keys: Key.arrowKeys, timeout: speed)
+                switch key {
+                case .upArrow:
+                    if game.direction != .down {
+                        game.direction = .up
+                    }
+                case .downArrow:
+                    if game.direction != .up {
+                        game.direction = .down
+                    }
+                case .leftArrow:
+                    if game.direction != .right {
+                        game.direction = .left
+                    }
+                case .rightArrow:
+                    if game.direction != .left {
+                        game.direction = .right
+                    }
+                default:
+                    break
+                }
+                
+                let currentDate = Date()
+                let timeNotUsed = speed - currentDate.timeIntervalSince(initialDate)
+                
+                if speed > 0 {
+                    try? await Task.sleep(for: .seconds(timeNotUsed))
+                }
+                
+                game.advance()
+            }
+            
+            print("Game Over :'(")
+            print("Play again? Y/N")
+            let key = await awaitKeyPress(keys: [.y, .n])
+            switch key {
+            case .n:
+                wantsToPlaySnake = false
+            default:
+                break
+            }
         }
-        
-        // clear - clears the command line UI
-        clear()
     }
 }
