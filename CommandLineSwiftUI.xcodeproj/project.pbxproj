@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D0DDEE02C4573A800E6374E /* CommandLineSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommandLineSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0DDEE02C4573A800E6374E /* Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0DDEE32C4573A800E6374E /* CommandLineSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineSwiftUIApp.swift; sourceTree = "<group>"; };
 		5D0DDEE52C4573A800E6374E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5D0DDEE72C4573A900E6374E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		5D0DDEE12C4573A800E6374E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5D0DDEE02C4573A800E6374E /* CommandLineSwiftUI.app */,
+				5D0DDEE02C4573A800E6374E /* Snake.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,9 +82,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5D0DDEDF2C4573A800E6374E /* CommandLineSwiftUI */ = {
+		5D0DDEDF2C4573A800E6374E /* Snake */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5D0DDEEF2C4573A900E6374E /* Build configuration list for PBXNativeTarget "CommandLineSwiftUI" */;
+			buildConfigurationList = 5D0DDEEF2C4573A900E6374E /* Build configuration list for PBXNativeTarget "Snake" */;
 			buildPhases = (
 				5D0DDEDC2C4573A800E6374E /* Sources */,
 				5D0DDEDD2C4573A800E6374E /* Frameworks */,
@@ -94,9 +94,9 @@
 			);
 			dependencies = (
 			);
-			name = CommandLineSwiftUI;
+			name = Snake;
 			productName = CommandLineSwiftUI;
-			productReference = 5D0DDEE02C4573A800E6374E /* CommandLineSwiftUI.app */;
+			productReference = 5D0DDEE02C4573A800E6374E /* Snake.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5D0DDEDF2C4573A800E6374E /* CommandLineSwiftUI */,
+				5D0DDEDF2C4573A800E6374E /* Snake */,
 			);
 		};
 /* End PBXProject section */
@@ -289,7 +289,7 @@
 				CODE_SIGN_ENTITLEMENTS = CommandLineSwiftUI/CommandLineSwiftUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 94AXJS8DQZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -301,6 +301,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zcutlerf.CommandLineSwiftUISnake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -317,7 +318,7 @@
 				CODE_SIGN_ENTITLEMENTS = CommandLineSwiftUI/CommandLineSwiftUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 94AXJS8DQZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -329,6 +330,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zcutlerf.CommandLineSwiftUISnake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -349,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5D0DDEEF2C4573A900E6374E /* Build configuration list for PBXNativeTarget "CommandLineSwiftUI" */ = {
+		5D0DDEEF2C4573A900E6374E /* Build configuration list for PBXNativeTarget "Snake" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5D0DDEF02C4573A900E6374E /* Debug */,
